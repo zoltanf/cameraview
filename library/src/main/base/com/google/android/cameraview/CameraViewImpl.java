@@ -22,10 +22,6 @@ import java.util.Set;
 
 abstract class CameraViewImpl {
 
-    static final int FOCUS_AREA_SIZE_DEFAULT = 300;
-    static final int FOCUS_METERING_AREA_WEIGHT_DEFAULT = 1000;
-    static final int DELAY_MILLIS_BEFORE_RESETTING_FOCUS = 3000;
-
     protected final Callback mCallback;
 
     protected final PreviewImpl mPreview;
@@ -37,18 +33,6 @@ abstract class CameraViewImpl {
 
     View getView() {
         return mPreview.getView();
-    }
-
-    int getFocusAreaSize() {
-        return FOCUS_AREA_SIZE_DEFAULT;
-    }
-
-    int getFocusMeteringAreaWeight() {
-        return FOCUS_METERING_AREA_WEIGHT_DEFAULT;
-    }
-
-    void detachFocusTapListener() {
-        mPreview.getView().setOnTouchListener(null);
     }
 
     /**
@@ -93,7 +77,6 @@ abstract class CameraViewImpl {
 
         void onPictureTaken(byte[] data);
 
-        void notPermission();
     }
 
 }

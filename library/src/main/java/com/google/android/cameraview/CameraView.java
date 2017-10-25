@@ -84,6 +84,8 @@ public class CameraView extends FrameLayout {
 
     private final DisplayOrientationDetector mDisplayOrientationDetector;
 
+    private FocusMarkerLayout mFocusMarkerLayout;
+
     public CameraView(Context context) {
         this(context, null);
     }
@@ -132,6 +134,10 @@ public class CameraView extends FrameLayout {
                 mImpl.setDisplayOrientation(displayOrientation);
             }
         };
+
+        // Focus area display
+        mFocusMarkerLayout = new FocusMarkerLayout(getContext());
+        addView(mFocusMarkerLayout);
     }
 
     @NonNull
@@ -411,6 +417,7 @@ public class CameraView extends FrameLayout {
                             return false;
                         }
                         mImpl.setFocusAt((int) e.getX(), (int) e.getY());
+                        mFocusMarkerLayout.focus(e.getX(), e.getY());
                         return true;
                     }
                 });

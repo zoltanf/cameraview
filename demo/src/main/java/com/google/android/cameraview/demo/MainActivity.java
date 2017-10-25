@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mCameraView = (CameraView) findViewById(R.id.camera);
+        mCameraView.setManualFocus(true);
         if (mCameraView != null) {
             mCameraView.addCallback(mCallback);
         }

@@ -41,6 +41,7 @@ import android.view.Surface;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.SortedSet;
 
@@ -536,7 +537,16 @@ class Camera2 extends CameraViewImpl {
         if (mImageReader != null) {
             mImageReader.close();
         }
-        Size largest = mPictureSizes.sizes(mAspectRatio).last();
+
+        Size largest;
+        try {
+            largest = mPictureSizes.sizes(mAspectRatio).last();
+        } catch (Exception e) {
+            Iterator iterator = mPictureSizes.ratios().iterator();
+            AspectRatio firstAspectRatio = (AspectRatio)iterator.next();
+            largest = mPictureSizes.sizes(firstAspectRatio).last();
+        }
+
         mImageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(),
                 ImageFormat.JPEG, /* maxImages */ 2);
         mImageReader.setOnImageAvailableListener(mOnImageAvailableListener, null);

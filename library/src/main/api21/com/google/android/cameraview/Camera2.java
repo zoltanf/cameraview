@@ -584,6 +584,22 @@ class Camera2 extends CameraViewImpl {
         } catch (CameraAccessException e) {
             throw new RuntimeException("Failed to start camera session");
         }
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Surface surface = mPreview.getSurface();
+                    mPreviewRequestBuilder = mCamera.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
+                    mPreviewRequestBuilder.addTarget(surface);
+                    mCamera.createCaptureSession(
+                            Arrays.asList(surface, mImageReader.getSurface()), mSessionCallback, null
+                    );
+                } catch (CameraAccessException e) {
+                    throw new RuntimeException("Failed to start camera session");
+                }
+            }
+        }, 500);
     }
 
     /**

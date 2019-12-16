@@ -589,6 +589,7 @@ class Camera2 extends CameraViewImpl {
             @Override
             public void run() {
                 try {
+                    if (mCamera == null || mPreview == null) return;
                     Surface surface = mPreview.getSurface();
                     mPreviewRequestBuilder = mCamera.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
                     mPreviewRequestBuilder.addTarget(surface);
@@ -599,7 +600,7 @@ class Camera2 extends CameraViewImpl {
                     throw new RuntimeException("Failed to start camera session");
                 }
             }
-        }, 500);
+        }, 400);
     }
 
     /**
